@@ -10,7 +10,7 @@ interface AutocompleteInputProps {
   disabled?: boolean;
 }
 
-const casinoSuggestions = [
+const casinoSuggestions = [ 
 "What are the top online casinos in Austria?",
 "Which online casinos are the most trusted in Austria?",
 "Which casinos offer fast withdrawals in Austria?",
