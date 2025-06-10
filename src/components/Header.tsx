@@ -11,11 +11,11 @@ const Header = () => {
             <Sparkles className="h-6 w-6 text-white" />
           </div>
           <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Casino AI
+            ChaCha AI
           </h1>
         </div>
         <div className="text-sm text-gray-500 hidden md:block">
-          Your intelligent casino assistant
+          Your intelligent assistant
         </div>
       </div>
     </header>

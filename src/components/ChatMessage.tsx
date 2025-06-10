@@ -35,7 +35,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           {/* Message Content */}
           <div className="flex-1 min-w-0 max-w-full">
             <div className="text-sm font-semibold text-gray-900 mb-3">
-              {message.isUser ? 'You' : 'Casino AI'}
+              {message.isUser ? 'You' : 'ChaCha AI'}
             </div>
             
             {message.isUser ? (

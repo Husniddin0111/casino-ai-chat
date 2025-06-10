@@ -43,7 +43,12 @@ const casinoSuggestions = [
 "How do casino bonuses and promotions work?",
 "What should I know before visiting a casino?",
 "What are today's best bonuses?",
-"Where can I find the biggest welcome bonuses?"
+"What are the most popular online platforms right now?",
+"Any fun websites or platforms worth checking out today?",
+"Where can I find something entertaining or different to try online?",
+"Where can I discover something fun and unique online?",
+"Help me find something exciting to try today.",
+"Are there any exclusive websites or tools people talk about lately?"
 ];
 
 const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
@@ -57,20 +62,20 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (value.length >= 1) {
-      const filtered = casinoSuggestions.filter(suggestion =>
-        suggestion.toLowerCase().includes(value.toLowerCase())
-      ).slice(0, 4);
+  // useEffect(() => {
+  //   if (value.length >= 1) {
+  //     const filtered = casinoSuggestions.filter(suggestion =>
+  //       suggestion.toLowerCase().includes(value.toLowerCase())
+  //     ).slice(0, 4);
       
-      setSuggestions(filtered);
-      setShowSuggestions(filtered.length > 0);
-      setSelectedIndex(-1);
-    } else {
-      setShowSuggestions(false);
-      setSuggestions([]);
-    }
-  }, [value]);
+  //     setSuggestions(filtered);
+  //     setShowSuggestions(filtered.length > 0);
+  //     setSelectedIndex(-1);
+  //   } else {
+  //     setShowSuggestions(false);
+  //     setSuggestions([]);
+  //   }
+  // }, [value]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!showSuggestions) {
@@ -156,7 +161,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask me anything about casinos..."
+          placeholder="Uncover unique websites, games, or apps you haven’t tried yet..."
           disabled={disabled}
           className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 px-3 py-2"
         />

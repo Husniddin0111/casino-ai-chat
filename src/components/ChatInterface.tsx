@@ -25,17 +25,62 @@ const ChatInterface = () => {
 
   // n8n webhook URL
   const webhookUrl = 'https://adsgbt.app.n8n.cloud/webhook/e2dc160f-2238-4a55-a5bb-0a1ec18ebdbe/chat';
-  
+
   // Generate a session ID for this chat session
   const [sessionId] = useState(uuidv4());
+
+  const getUserIP = async (): Promise<string | null> => {
+    try {
+      const res = await fetch('https://api.ipify.org?format=json');
+      const data = await res.json();
+      return data.ip; // example: "123.45.67.89"
+    } catch (error) {
+      console.error('Failed to fetch IP:', error);
+      return null;
+    }
+  };
+
+  const getCountryCode = async (): Promise<string> => {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+      return data.country_code || 'EN';
+    } catch (error) {
+      console.error('Failed to fetch country code:', error);
+      return 'EN';
+    }
+  };
+
+  const [language, setLanguage] = useState<'en' | 'de'>('en');
+
+  useEffect(() => {
+    const detectLanguage = async () => {
+      const countryCode = await getCountryCode();
+      setLanguage(countryCode === 'AT' || countryCode === 'DE' ? 'de' : 'en');
+    };
+    detectLanguage();
+  }, []);
+
+  const translations = {
+    en: {
+      welcomeTitle: "Welcome to your smart online assistant",
+      welcomeText: "Discover trending platforms, tips, and games with ChaCha AI",
+      inputPlaceholder: "Type your message...",
+    },
+    de: {
+      welcomeTitle: "Willkommen bei deinem smarten Online-Assistenten",
+      welcomeText: "Entdecke trendige Plattformen, Tipps und Spiele mit ChaCha AI",
+      inputPlaceholder: "Schreibe deine Nachricht...",
+    },
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [messages]);
 
   const sendMessage = async (messageText: string) => {
     if (!messageText.trim()) return;
@@ -57,10 +102,11 @@ const ChatInterface = () => {
         action: "sendMessage",
         chatInput: messageText,
         timestamp: new Date(),
+        userIP: await getUserIP() || "unknown"
       };
 
       console.log("Sending webhook payload:", webhookPayload);
-      
+
       const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
@@ -75,31 +121,31 @@ const ChatInterface = () => {
 
       const data = await response.json();
       console.log("Received webhook response:", data);
-      
+
       // Process the response using the utility function
       const aiResponse = processWebhookResponse(data);
-      
+
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: aiResponse,
         isUser: false,
         timestamp: new Date(),
       };
-      
+
       setMessages(prev => [...prev, aiMessage]);
 
     } catch (error) {
       console.error('Error sending/receiving message:', error);
-      
+
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: 'Sorry, unable to connect to AI service. Please try again.',
         isUser: false,
         timestamp: new Date(),
       };
-      
+
       setMessages(prev => [...prev, errorMessage]);
-      
+
       toast({
         title: "Connection Error",
         description: "Unable to connect to AI service. Please try again.",
@@ -120,7 +166,7 @@ const ChatInterface = () => {
       <div className="flex-1 overflow-y-auto pt-4" ref={messagesContainerRef}>
         <div className="w-full">
           {messages.length === 0 ? (
-            <WelcomeMessage />
+            <WelcomeMessage language={language} />
           ) : (
             <div className="w-full">
               {messages.map((message) => (
@@ -128,7 +174,7 @@ const ChatInterface = () => {
               ))}
             </div>
           )}
-          
+
           {isLoading && (
             <div className="w-full">
               <div className="max-w-4xl mx-auto px-4 py-6">
@@ -137,7 +183,7 @@ const ChatInterface = () => {
                     <div className="w-4 h-4 rounded-full bg-white animate-pulse"></div>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium text-gray-900 mb-2">Casino AI</div>
+                    <div className="text-sm font-medium text-gray-900 mb-2">ChaCha AI</div>
                     <div className="bg-gray-50 rounded-2xl px-4 py-3 shadow-sm border border-gray-100">
                       <div className="flex space-x-1">
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
@@ -150,7 +196,7 @@ const ChatInterface = () => {
               </div>
             </div>
           )}
-          
+
           <div ref={messagesEndRef} />
         </div>
       </div>

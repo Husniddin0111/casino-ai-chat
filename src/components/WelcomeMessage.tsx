@@ -5,7 +5,18 @@ import { TypeAnimation } from 'react-type-animation';
 import { Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const WelcomeMessage = () => {
+const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
+  const t = {
+    en: {
+      title: "Welcome to your smart online assistant",
+      text: "Discover trending platforms, tips, and games with ChaCha AI\n Looking for something fun or useful online? I’m here to help.",
+    },
+    de: {
+      title: "Willkommen bei deinem smarten Online-Assistenten",
+      text: "Entdecke trendige Plattformen, Tipps und Spiele mit ChaCha AI\n Suchst du etwas Lustiges oder Nützliches online? Ich helfe dir gern.",
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-full">
       <div className="text-center space-y-8 py-8 animate-fade-in">
@@ -17,14 +28,24 @@ const WelcomeMessage = () => {
             </div>
           </div>
           <div>
-            <br></br><br></br><br></br>
+            <br></br><br></br>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-              Welcome to Casino AI
+              {t[language].title.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
             </h2>
             <p className="text-gray-600 text-lg">
-              Your intelligent casino assistant is here to help
+              {t[language].text.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
             </p>
-
+            <br></br>
             <motion.div
               initial={{ rotate: -10 }}
               animate={{ rotate: 10 }}
@@ -32,19 +53,20 @@ const WelcomeMessage = () => {
               className="inline-block mt-4 text-yellow-600"
             >
               <Lightbulb className="w-8 h-8" />
-            </motion.div><br></br>
+            </motion.div><br></br><br></br>
             <TypeAnimation
               sequence={[
-                "What are today's best bonuses?",
+                "What are the most popular online platforms right now?",
                 1000,
-                "What are the top online casinos in Austria?",
+                "Any fun websites or platforms worth checking out today?",
                 1000,
-                "How do I withdraw money from a casino?",
+                "Where can I find something entertaining or different to try online?",
                 1000,
-                "Which games give the best returns?",
+                "Where can I discover something fun and unique online?",
                 1000,
-                "Where can I find the biggest welcome bonuses?",
-                1000
+                "Help me find something exciting to try today.",
+                1000,
+                "Are there any exclusive websites or tools people talk about lately?"
               ]}
               wrapper="span"
               cursor={true}
