@@ -57,6 +57,7 @@ const ChatInterface = () => {
     const detectLanguage = async () => {
       const countryCode = await getCountryCode();
       // setLanguage(countryCode === 'AT' || countryCode === 'DE' ? 'de' : 'en');
+      console.log("Your IP-based country code:", countryCode);
       setLanguage(['AT', 'DE', 'NL'].includes(countryCode) ? 'de' : 'en'); 
     };
     detectLanguage();
