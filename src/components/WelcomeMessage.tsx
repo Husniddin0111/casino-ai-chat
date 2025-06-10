@@ -6,7 +6,7 @@ import { Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
-  const t = {
+  const welcome = {
     en: {
       title: "Welcome to your smart online assistant",
       text: "Discover trending platforms, tips, and games with ChaCha AI\n Looking for something fun or useful online? I’m here to help.",
@@ -16,6 +16,33 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
       text: "Entdecke trendige Plattformen, Tipps und Spiele mit ChaCha AI\n Suchst du etwas Lustiges oder Nützliches online? Ich helfe dir gern.",
     }
   };
+
+  const q = {
+    en: {
+      title: "Welcome to your smart online assistant",
+      text: "Discover trending platforms, tips, and games with ChaCha AI\nLooking for something fun or useful online? I’m here to help.",
+      typing: [
+        "Discover today's most exciting websites and apps",
+        "Find something fun and different to explore online",
+        "Where can I try something new and unique online?",
+        "What are people loving online right now?",
+        "Show me something useful and fun today",
+        "Any exciting platforms or tools trending lately?"
+      ]
+    },
+    de: {
+      title: "Willkommen bei deinem smarten Online-Assistenten",
+      text: "Entdecke angesagte Plattformen, Tipps und Spiele mit ChaCha AI\nSuchst du etwas Lustiges oder Nützliches online? Ich helfe dir gern.",
+      typing: [
+        "Entdecke heute spannende Websites und Apps",
+        "Finde etwas Neues und Einzigartiges zum Ausprobieren",
+        "Was ist online gerade im Trend?",
+        "Zeig mir etwas Nützliches und Unterhaltsames",
+        "Welche Tools oder Plattformen sind aktuell beliebt?",
+        "Was lohnt sich heute online auszuprobieren?"
+      ]
+    }
+  }
 
   return (
     <div className="flex items-center justify-center min-h-full">
@@ -30,7 +57,7 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
           <div>
             <br></br><br></br>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-              {t[language].title.split('\n').map((line, index) => (
+              {welcome[language].title.split('\n').map((line, index) => (
                 <React.Fragment key={index}>
                   {line}
                   <br />
@@ -38,7 +65,7 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
               ))}
             </h2>
             <p className="text-gray-600 text-lg">
-              {t[language].text.split('\n').map((line, index) => (
+              {welcome[language].text.split('\n').map((line, index) => (
                 <React.Fragment key={index}>
                   {line}
                   <br />
@@ -55,19 +82,9 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
               <Lightbulb className="w-8 h-8" />
             </motion.div><br></br><br></br>
             <TypeAnimation
-              sequence={[
-                "What are the most popular online platforms right now?",
-                1000,
-                "Any fun websites or platforms worth checking out today?",
-                1000,
-                "Where can I find something entertaining or different to try online?",
-                1000,
-                "Where can I discover something fun and unique online?",
-                1000,
-                "Help me find something exciting to try today.",
-                1000,
-                "Are there any exclusive websites or tools people talk about lately?"
-              ]}
+              sequence={
+                q[language].typing.flatMap((line) => [line, 1000])
+              }
               wrapper="span"
               cursor={true}
               repeat={Infinity}

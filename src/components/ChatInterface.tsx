@@ -56,7 +56,8 @@ const ChatInterface = () => {
   useEffect(() => {
     const detectLanguage = async () => {
       const countryCode = await getCountryCode();
-      setLanguage(countryCode === 'AT' || countryCode === 'DE' ? 'de' : 'en');
+      // setLanguage(countryCode === 'AT' || countryCode === 'DE' ? 'de' : 'en');
+      setLanguage(['AT', 'DE', 'NL'].includes(countryCode) ? 'de' : 'en'); 
     };
     detectLanguage();
   }, []);
