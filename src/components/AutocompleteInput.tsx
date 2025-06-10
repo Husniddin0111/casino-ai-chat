@@ -55,8 +55,8 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   value,
   onChange,
   onSubmit,
-  disabled = false
-}) => {
+  disabled = false,
+},{ language }: { language: 'en' | 'de' }) => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -127,6 +127,10 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
     }
   };
 
+  const placeholderText = language === 'de'
+  ? "Entdecke einzigartige Websites, Spiele oder Apps, die du noch nicht ausprobiert hast..."
+  : "Uncover unique websites, games, or apps you haven’t tried yet...";
+
   return (
     <div className="relative">
       {/* Suggestions Dropdown - Above Input */}
@@ -161,7 +165,8 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Uncover unique websites, games, or apps you haven’t tried yet..."
+          // placeholder="Uncover unique websites, games, or apps you haven’t tried yet..."
+          placeholder={placeholderText}
           disabled={disabled}
           className="flex-1 bg-transparent border-none outline-none text-gray-800 placeholder-gray-500 px-3 py-2"
         />

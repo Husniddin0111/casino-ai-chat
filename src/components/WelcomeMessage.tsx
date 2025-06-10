@@ -6,21 +6,10 @@ import { Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
-  const welcome = {
+  const t = {
     en: {
       title: "Welcome to your smart online assistant",
       text: "Discover trending platforms, tips, and games with ChaCha AI\n Looking for something fun or useful online? I’m here to help.",
-    },
-    de: {
-      title: "Willkommen bei deinem smarten Online-Assistenten",
-      text: "Entdecke trendige Plattformen, Tipps und Spiele mit ChaCha AI\n Suchst du etwas Lustiges oder Nützliches online? Ich helfe dir gern.",
-    }
-  };
-
-  const q = {
-    en: {
-      title: "Welcome to your smart online assistant",
-      text: "Discover trending platforms, tips, and games with ChaCha AI\nLooking for something fun or useful online? I’m here to help.",
       typing: [
         "Discover today's most exciting websites and apps",
         "Find something fun and different to explore online",
@@ -32,7 +21,7 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
     },
     de: {
       title: "Willkommen bei deinem smarten Online-Assistenten",
-      text: "Entdecke angesagte Plattformen, Tipps und Spiele mit ChaCha AI\nSuchst du etwas Lustiges oder Nützliches online? Ich helfe dir gern.",
+      text: "Entdecke trendige Plattformen, Tipps und Spiele mit ChaCha AI\n Suchst du etwas Lustiges oder Nützliches online? Ich helfe dir gern.",
       typing: [
         "Entdecke heute spannende Websites und Apps",
         "Finde etwas Neues und Einzigartiges zum Ausprobieren",
@@ -42,7 +31,7 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
         "Was lohnt sich heute online auszuprobieren?"
       ]
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-full">
@@ -57,7 +46,7 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
           <div>
             <br></br><br></br>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-              {welcome[language].title.split('\n').map((line, index) => (
+              {t[language].title.split('\n').map((line, index) => (
                 <React.Fragment key={index}>
                   {line}
                   <br />
@@ -65,7 +54,7 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
               ))}
             </h2>
             <p className="text-gray-600 text-lg">
-              {welcome[language].text.split('\n').map((line, index) => (
+              {t[language].text.split('\n').map((line, index) => (
                 <React.Fragment key={index}>
                   {line}
                   <br />
@@ -83,7 +72,7 @@ const WelcomeMessage = ({ language }: { language: 'en' | 'de' }) => {
             </motion.div><br></br><br></br>
             <TypeAnimation
               sequence={
-                q[language].typing.flatMap((line) => [line, 1000])
+                t[language].typing.flatMap((line) => [line, 1000])
               }
               wrapper="span"
               cursor={true}
