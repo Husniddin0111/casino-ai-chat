@@ -6,7 +6,7 @@ import Header from '../components/Header';
 const Index = () => {
   return (
     <div className="h-screen bg-gray-50 flex flex-col overflow-hidden">
-      <Header />
+      <Header language={"en"} />
       <div className="flex-1 overflow-hidden bg-gray-50">
         <ChatInterface />
       </div>
